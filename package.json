@@ -1,0 +1,15 @@
+{
+  "name": "qbo-converter",
+  "version": "0.0.1",
+  "description": "Simple node script to convert qfx files to to QBO files for Quickbooks Import",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Shaheen Ghiassy",
+  "license": "BSD",
+  "dependencies": {
+    
+  }
+}
