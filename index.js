@@ -9,17 +9,44 @@ var argv = require('optimist')
     .argv;
 var fileToConvert = argv.file;
 
+//Define Constants
+var ORG = "<ORG>";
+var FID = "<FID>";
+var FI = "</FI>";
+var INTU = "<INTU.BID>";
+var SONRS = "</SONRS>";
+var NEW_BANK = "AMEX";
+var NEW_FID = "3106";
+var NEW_INTU = "3106";
+
 
 fs.readFile(fileToConvert, 'utf8', function(err, data) {
 	if(err) throw err;
 	
-	var newData = data.valueOf();
+	//Grab file data as a string
+	var file = data.valueOf();
 	
-	newData = newData.replace("<ORG>U.S. Bank<FID>1402</FI><INTU.BID>1402", "<ORG>AMEX<FID>3106</FI><INTU.BID>3106");
+	//Replace Bank Name
+	var orgPlaceholder = file.search(ORG);
+	var fidPlaceholder = file.search(FID);
+	file = file.substring(0, orgPlaceholder + ORG.length) + NEW_BANK + file.substring(fidPlaceholder, file.length);
+	
+	//Replace FID Code
+	var fidPlaceholder = file.search(FID);
+	var fiPlaceholder  = file.search(FI);
+	file = file.substring(0, fidPlaceholder + FID.length) + NEW_FID + file.substring(fiPlaceholder, file.length);
+	
+	//Replace INTU Code
+	var intuPlaceholder = file.search(INTU);
+	var sonrsPlaceholder = file.search(SONRS);
+	file = file.substring(0, intuPlaceholder + INTU.length) + NEW_INTU + file.substring(sonrsPlaceholder, file.length);
+	
+	//Old way go replacing data
+	//newData = newData.replace("<ORG>U.S. Bank<FID>1402</FI><INTU.BID>1402", "<ORG>AMEX<FID>3106</FI><INTU.BID>3106");
 	
 	var newFileName = changeFileExtension(fileToConvert);
 	
-	fs.writeFile(newFileName, newData, function (err) {
+	fs.writeFile(newFileName, file, function (err) {
 	  if (err) throw err;
 	  console.log('It\'s saved!');
 	});
