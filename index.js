@@ -1,5 +1,13 @@
 window.app = {css:{}}; //setup namespace
 
+$(document).ready(function() {
+	//Bootup Code
+	app.setupCSS();
+	
+	//Do the file api
+	app.setupFileAPI();
+});
+
 function download(filename, text) {
     var pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -52,14 +60,6 @@ app.handleFileSelect = function(evt) {
 	evt.preventDefault();
 
 	var files = evt.dataTransfer.files; // FileList object.
-
-	// files is a FileList of File objects. List some properties.
-	var output = [];
-	for (var i = 0, f; f = files[i]; i++) {
-		output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ', f.size, ' bytes, last modified: ', f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a', '</li>');
-	}
-	
-	
 	
 	for (var i = 0, f; f = files[i]; i++) {
 		window.fileName = f.name
@@ -69,18 +69,9 @@ app.handleFileSelect = function(evt) {
 		// Closure to capture the file information.
 		reader.onload = (function(theFile) {
 			return function(e) {
-				// $.ajax({
-// 				  url: "http://localhost:3000/convert?fileName=" + window.fileName,
-// 				  type: 'post',
-// 				  data: e.target.result
-// 				}).done(function ( data ) {
-// 					// debugger;
-// 					 
-// 					 
-// 				});
-var file = app.convertFile(e.target.result);
-				// debugger;
-				download(app.changeFileExtension(window.fileName), file);
+				var convertedFile = app.convertFile(e.target.result);
+
+				download(app.changeFileExtension(window.fileName), convertedFile);
 			};
 		})(f);
 
@@ -121,12 +112,3 @@ app.setupCSS = function() {
 	formLeft = (app.css.windowWidth / 2) - (app.css.$inputForm.width() /2);
 	app.css.$inputForm.css({left:formLeft});
 };
-
-$(document).ready(function() {
-	//Bootup Code
-	app.setupCSS();
-	
-	//Do the file api
-	app.setupFileAPI();
-});
-
