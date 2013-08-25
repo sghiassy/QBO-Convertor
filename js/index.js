@@ -13,7 +13,7 @@ function download(filename, text) {
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     pom.setAttribute('download', filename);
     pom.click();
-}
+};
 
 app.changeFileExtension = function(inputFileName) {
 	if(inputFileName.split('.').length >= 3 || typeof inputFileName !== "string") {
@@ -24,7 +24,7 @@ app.changeFileExtension = function(inputFileName) {
 	var newFileName = oldFileName + ".qbo";
 
 	return newFileName;
-}
+};
 
 app.convertFile = function(file) {
 	//Define Constants
@@ -53,7 +53,7 @@ app.convertFile = function(file) {
 	file = file.substring(0, intuPlaceholder + INTU.length) + NEW_INTU + file.substring(sonrsPlaceholder, file.length);
 	
 	return file;
-}
+};
 
 app.handleFileSelect = function(evt) {
 	evt.stopPropagation();
@@ -80,17 +80,29 @@ app.handleFileSelect = function(evt) {
 	}
 };
 
+app.resizeWindow = function() {
+	app.css.windowHeight = $(window).height();
+	app.css.windowWidth = $(window).width();
+	
+	//Setup main div
+	app.css.$wrapper.css({height:app.css.windowHeight});
+	
+	//Setup input form
+	formLeft = (app.css.windowWidth / 2) - (app.css.$inputForm.width() /2);
+	app.css.$inputForm.css({left:formLeft});
+};
+
 app.handleDragOver = function(evt) {
 	evt.stopPropagation();
 	evt.preventDefault();
 	evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-}
+};
 
 app.setupFileAPI = function() {
 	// Check for the various File API support.
 	if (window.File && window.FileReader && window.FileList && window.Blob) {
 		// Setup the dnd listeners.
-	    var dropZone = document.getElementById('drop-zone');
+	    var dropZone = document.getElementById('input-form');
 	    dropZone.addEventListener('dragover', app.handleDragOver, false);
 	    dropZone.addEventListener('drop', app.handleFileSelect, false);
 	} else {
@@ -100,15 +112,12 @@ app.setupFileAPI = function() {
 
 app.setupCSS = function() {
 	//Cache jQuery
-	app.css.windowHeight = $(window).height();
-	app.css.windowWidth = $(window).width();
 	app.css.$wrapper = $("#wrapper");
 	app.css.$inputForm = $('#input-form');
 	
-	//Setup main div
-	app.css.$wrapper.css({height:app.css.windowHeight});
+	app.resizeWindow();
 	
-	//Setup input form
-	formLeft = (app.css.windowWidth / 2) - (app.css.$inputForm.width() /2);
-	app.css.$inputForm.css({left:formLeft});
+	$(window).resize(function() {
+		app.resizeWindow();
+	});
 };
