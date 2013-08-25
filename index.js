@@ -1,4 +1,6 @@
-function handleFileSelect(evt) {
+window.app = {css:{}}; //setup namespace
+
+app.handleFileSelect = function(evt) {
 	evt.stopPropagation();
 	evt.preventDefault();
 
@@ -9,19 +11,50 @@ function handleFileSelect(evt) {
 	for (var i = 0, f; f = files[i]; i++) {
 		output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ', f.size, ' bytes, last modified: ', f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a', '</li>');
 	}
-
+	
 	document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-}
+	
+	for (var i = 0, f; f = files[i]; i++) {
+		//Only process image files.
+		//if (!f.type.match('image.*')) {
+			//continue;
+		//}
 
-function handleDragOver(evt) {
+		var reader = new FileReader();
+
+		// Closure to capture the file information.
+		reader.onload = (function(theFile) {
+			return function(e) {
+				console.log(e.target.result);
+				$('#list').html('<pre>' + e.target.result + '</pre>');
+			};
+		})(f);
+
+		// Read in the image file as a data URL.
+		reader.readAsText(f);
+	}
+};
+
+app.handleDragOver = function(evt) {
 	evt.stopPropagation();
 	evt.preventDefault();
 	evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 
-$(document).ready(function() {
-	//Bootup Code
-	window.app = {css:{}}; //setup namespace
+app.setupFileAPI = function() {
+	// Check for the various File API support.
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		// Setup the dnd listeners.
+	    var dropZone = document.getElementById('drop-zone');
+	    dropZone.addEventListener('dragover', app.handleDragOver, false);
+	    dropZone.addEventListener('drop', app.handleFileSelect, false);
+	} else {
+		alert('The File APIs are not fully supported in this browser.');
+	}
+};
+
+app.setupCSS = function() {
+	//Cache jQuery
 	app.css.windowHeight = $(window).height();
 	app.css.windowWidth = $(window).width();
 	app.css.$wrapper = $("#wrapper");
@@ -33,16 +66,13 @@ $(document).ready(function() {
 	//Setup input form
 	formLeft = (app.css.windowWidth / 2) - (app.css.$inputForm.width() /2);
 	app.css.$inputForm.css({left:formLeft});
+};
+
+$(document).ready(function() {
+	//Bootup Code
+	app.setupCSS();
 	
 	//Do the file api
-	// Check for the various File API support.
-	if (window.File && window.FileReader && window.FileList && window.Blob) {
-		// Setup the dnd listeners.
-	    var dropZone = document.getElementById('drop-zone');
-	    dropZone.addEventListener('dragover', handleDragOver, false);
-	    dropZone.addEventListener('drop', handleFileSelect, false);
-	} else {
-		alert('The File APIs are not fully supported in this browser.');
-	}
+	app.setupFileAPI();
 });
 
