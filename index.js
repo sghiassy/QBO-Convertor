@@ -12,9 +12,10 @@ app.handleFileSelect = function(evt) {
 		output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ', f.size, ' bytes, last modified: ', f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a', '</li>');
 	}
 	
-	document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+	
 	
 	for (var i = 0, f; f = files[i]; i++) {
+		window.fileName = f.name
 		//Only process image files.
 		//if (!f.type.match('image.*')) {
 			//continue;
@@ -25,8 +26,13 @@ app.handleFileSelect = function(evt) {
 		// Closure to capture the file information.
 		reader.onload = (function(theFile) {
 			return function(e) {
-				console.log(e.target.result);
-				$('#list').html('<pre>' + e.target.result + '</pre>');
+				$.ajax({
+				  url: "http://localhost:3000/convert?fileName=" + window.fileName,
+				  type: 'post',
+				  data: e.target.result
+				}).done(function ( data ) {
+					$('#list').html('<pre>' + e.target.result + '</pre>');
+				});
 			};
 		})(f);
 
