@@ -1,5 +1,52 @@
 window.app = {css:{}}; //setup namespace
 
+function download(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+    pom.click();
+}
+
+app.changeFileExtension = function(inputFileName) {
+	if(inputFileName.split('.').length >= 3 || typeof inputFileName !== "string") {
+		throw "Error 3XS: Improper filename argument";
+	}
+
+	var oldFileName = inputFileName.split('.')[0];
+	var newFileName = oldFileName + ".qbo";
+
+	return newFileName;
+}
+
+app.convertFile = function(file) {
+	//Define Constants
+	var ORG = "<ORG>";
+	var FID = "<FID>";
+	var FI = "</FI>";
+	var INTU = "<INTU.BID>";
+	var SONRS = "</SONRS>";
+	var NEW_BANK = "AMEX";
+	var NEW_FID = "3106";
+	var NEW_INTU = "3106";
+
+	//Replace Bank Name
+	var orgPlaceholder = file.search(ORG);
+	var fidPlaceholder = file.search(FID);
+	file = file.substring(0, orgPlaceholder + ORG.length) + NEW_BANK + file.substring(fidPlaceholder, file.length);
+
+	//Replace FID Code
+	var fidPlaceholder = file.search(FID);
+	var fiPlaceholder  = file.search(FI);
+	file = file.substring(0, fidPlaceholder + FID.length) + NEW_FID + file.substring(fiPlaceholder, file.length);
+
+	//Replace INTU Code
+	var intuPlaceholder = file.search(INTU);
+	var sonrsPlaceholder = file.search(SONRS);
+	file = file.substring(0, intuPlaceholder + INTU.length) + NEW_INTU + file.substring(sonrsPlaceholder, file.length);
+	
+	return file;
+}
+
 app.handleFileSelect = function(evt) {
 	evt.stopPropagation();
 	evt.preventDefault();
@@ -16,23 +63,24 @@ app.handleFileSelect = function(evt) {
 	
 	for (var i = 0, f; f = files[i]; i++) {
 		window.fileName = f.name
-		//Only process image files.
-		//if (!f.type.match('image.*')) {
-			//continue;
-		//}
 
 		var reader = new FileReader();
 
 		// Closure to capture the file information.
 		reader.onload = (function(theFile) {
 			return function(e) {
-				$.ajax({
-				  url: "http://localhost:3000/convert?fileName=" + window.fileName,
-				  type: 'post',
-				  data: e.target.result
-				}).done(function ( data ) {
-					$('#list').html('<pre>' + e.target.result + '</pre>');
-				});
+				// $.ajax({
+// 				  url: "http://localhost:3000/convert?fileName=" + window.fileName,
+// 				  type: 'post',
+// 				  data: e.target.result
+// 				}).done(function ( data ) {
+// 					// debugger;
+// 					 
+// 					 
+// 				});
+var file = app.convertFile(e.target.result);
+				// debugger;
+				download(app.changeFileExtension(window.fileName), file);
 			};
 		})(f);
 
