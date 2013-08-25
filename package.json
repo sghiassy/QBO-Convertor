@@ -11,7 +11,6 @@
   "license": "BSD",
   "dependencies": {
     "optimist": "~0.6.0",
-    "bower": "~1.2.4",
-    "express": "~3.3.5"
+    "bower": "~1.2.4"
   }
 }

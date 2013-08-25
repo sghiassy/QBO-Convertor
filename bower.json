@@ -9,6 +9,5 @@
   ],
   "dependencies": {
     "cssQuery": "git@github.com:sghiassy/cssQuery.git",
-    "jquery.fileDownload": "https://github.com/johnculviner/jquery.fileDownload.git"
   }
 }
