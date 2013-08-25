@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-//Usage Example: ./index.js --file personal.qfx
+//Usage Example: ./convert.js --file personal.qfx
 
 var fs = require('fs');
 var argv = require('optimist')
