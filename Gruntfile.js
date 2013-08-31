@@ -12,15 +12,15 @@ module.exports = function(grunt) {
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
     concat: {
-      dist: {
+      js: {
         src: ['src/js/*.js'],
         dest: 'build/<%= pkg.name %>.js'
       },
-      dist: {
+      css: {
         src: ['src/css/reset.css', 'src/css/main.css'],
         dest: 'build/<%= pkg.name %>.css'
       },
-      dist: {
+      html: {
         src: ['src/html/index.html'],
         dest: 'build/index.html'
       }
@@ -67,9 +67,9 @@ module.exports = function(grunt) {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
       },
-      lib_test: {
-        files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'qunit']
+      build: {
+        files: ['<%= concat.js.src %>', '<%= concat.css.src %>', '<%= concat.html.src %>'],
+        tasks: ['concat']
       }
     }
   });
@@ -80,6 +80,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat']);
 
 };
