@@ -1,10 +1,10 @@
 window.app = {css:{}}; //setup namespace
 
 $(document).ready(function() {
-	//Bootup Code
+	// Bootup Code
 	app.setupCSS();
 	
-	//Do the file api
+	// Do the file api
 	app.setupFileAPI();
 });
 
@@ -27,7 +27,7 @@ app.changeFileExtension = function(inputFileName) {
 };
 
 app.convertFile = function(file) {
-	//Define Constants
+	// Define Constants
 	var ORG = "<ORG>";
 	var FID = "<FID>";
 	var FI = "</FI>";
@@ -47,12 +47,12 @@ app.convertFile = function(file) {
 	var fiPlaceholder  = file.search(FI);
 	file = file.substring(0, fidPlaceholder + FID.length) + NEW_FID + file.substring(fiPlaceholder, file.length);
 
-	//Replace INTU Code
+	// Replace INTU Code
 	var intuPlaceholder = file.search(INTU);
 	var sonrsPlaceholder = file.search(SONRS);
 	file = file.substring(0, intuPlaceholder + INTU.length) + NEW_INTU + file.substring(sonrsPlaceholder, file.length);
 	
-	return file;
+	return file; 
 };
 
 app.handleFileSelect = function(evt) {
@@ -62,32 +62,40 @@ app.handleFileSelect = function(evt) {
 	var files = evt.dataTransfer.files; // FileList object.
 	
 	for (var i = 0, f; f = files[i]; i++) {
-		window.fileName = f.name
+		if(app.getFileExtension(f.name) === "qfx") {
+			window.fileName = f.name; // Totally hacky
 
-		var reader = new FileReader();
+			var reader = new FileReader();
 
-		// Closure to capture the file information.
-		reader.onload = (function(theFile) {
-			return function(e) {
-				var convertedFile = app.convertFile(e.target.result);
+			// Closure to capture the file information.
+			reader.onload = (function(theFile) {
+				return function(e) {
+					var convertedFile = app.convertFile(e.target.result);
 
-				download(app.changeFileExtension(window.fileName), convertedFile);
-			};
-		})(f);
+					download(app.changeFileExtension(window.fileName), convertedFile);
+				};
+			})(f);
 
-		// Read in the image file as a data URL.
-		reader.readAsText(f);
+			// Read in the image file as a data URL.
+			reader.readAsText(f);
+		} else {
+			alert('This app currently only supports converting QFX files');
+		}
 	}
+};
+
+app.getFileExtension = function(fileName) {
+	return fileExtension = fileName.split('.')[fileName.split('.').length - 1];
 };
 
 app.resizeWindow = function() {
 	app.css.windowHeight = $(window).height();
 	app.css.windowWidth = $(window).width();
 	
-	//Setup main div
+	// Setup main div
 	app.css.$wrapper.css({height:app.css.windowHeight});
 	
-	//Setup input form
+	// Setup input form
 	formLeft = (app.css.windowWidth / 2) - (app.css.$inputForm.width() /2);
 	app.css.$inputForm.css({left:formLeft});
 };
@@ -111,7 +119,7 @@ app.setupFileAPI = function() {
 };
 
 app.setupCSS = function() {
-	//Cache jQuery
+	// Cache jQuery
 	app.css.$wrapper = $("#wrapper");
 	app.css.$inputForm = $('#input-form');
 	
