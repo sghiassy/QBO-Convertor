@@ -67,9 +67,17 @@ module.exports = function(grunt) {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
       },
-      build: {
-        files: ['<%= concat.js.src %>', '<%= concat.css.src %>', '<%= concat.html.src %>'],
-        tasks: ['concat']
+      html: {
+        files: ['<%= concat.html.src %>'],
+        tasks: ['concat:html']
+      },
+      css: {
+        files: ['<%= concat.css.src %>'],
+        tasks: ['concat:css']
+      },
+      js: {
+        files: ['<%= concat.js.src %>'],
+        tasks: ['concat:js']
       }
     }
   });

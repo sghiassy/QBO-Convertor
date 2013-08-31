@@ -64,6 +64,8 @@ app.handleFileSelect = function(evt) {
 	for (var i = 0, f; f = files[i]; i++) {
 		if(app.getFileExtension(f.name) === "qfx") {
 			window.fileName = f.name; // Totally hacky
+			
+			app.infoSign.newMessage(f.name);
 
 			var reader = new FileReader();
 
@@ -72,6 +74,7 @@ app.handleFileSelect = function(evt) {
 				return function(e) {
 					var convertedFile = app.convertFile(e.target.result);
 
+					app.infoSign.newMessage("You're conversion was successful. Your file will be downloaded.");
 					download(app.changeFileExtension(window.fileName), convertedFile);
 				};
 			})(f);
@@ -79,7 +82,7 @@ app.handleFileSelect = function(evt) {
 			// Read in the image file as a data URL.
 			reader.readAsText(f);
 		} else {
-			alert('This app currently only supports converting QFX files');
+			app.infoSign.newMessage('This app currently only supports converting QFX files');
 		}
 	}
 };
@@ -97,7 +100,6 @@ app.resizeWindow = function() {
 	
 	// Setup input form
 	formLeft = (app.css.windowWidth / 2) - (app.css.$inputForm.width() /2);
-	app.css.$inputForm.css({left:formLeft});
 };
 
 app.handleDragOver = function(evt) {
@@ -122,10 +124,17 @@ app.setupCSS = function() {
 	// Cache jQuery
 	app.css.$wrapper = $("#wrapper");
 	app.css.$inputForm = $('#input-form');
+	app.css.$infoSign = $('#info-sign');
 	
 	app.resizeWindow();
 	
 	$(window).resize(function() {
 		app.resizeWindow();
+	});
+	
+	app.css.$infoSign.css({top:"77px"});
+	
+	$('body').click(function(evt) {
+		app.infoSign.close();
 	});
 };
