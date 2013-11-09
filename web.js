@@ -5,7 +5,7 @@ var app = express();
 app.use(express.logger());
 
 app.get('/test', function(request, response) {
-  response.send('Hello World!');
+  response.send('Hello World from Heroku');
 });
 
 app.use('/', express.static(__dirname + '/build'), {maxAge: ONEDAY});
