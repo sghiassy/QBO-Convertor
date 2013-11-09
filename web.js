@@ -4,6 +4,10 @@ var express = require("express");
 var app = express();
 app.use(express.logger());
 
+app.get('/test', function(request, response) {
+  response.send('Hello World!');
+});
+
 app.use('/', express.static(__dirname + '/build'), {maxAge: ONEDAY});
 
 var port = process.env.PORT || 5000;
