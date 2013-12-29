@@ -21,8 +21,10 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.css'
       },
       html: {
-        src: ['src/html/index.html'],
-        dest: 'build/index.html'
+        files: {
+          'build/index.html': ['src/html/index.html'],
+          'build/google9e48730d398c5fee.html': ['src/html/google9e48730d398c5fee.html'],
+        }
       }
     },
     uglify: {
@@ -30,7 +32,7 @@ module.exports = function(grunt) {
         banner: '<%= banner %>'
       },
       dist: {
-        src: '<%= concat.dist.dest %>',
+        src: '<%= concat.js.dest %>',
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
@@ -89,5 +91,5 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['concat']);
-
+  grunt.registerTask('build', ['concat', 'uglify']);
 };
