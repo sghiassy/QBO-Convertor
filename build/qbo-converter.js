@@ -63,6 +63,9 @@ app.handleFileSelect = function(evt) {
 	
 	for (var i = 0, f; f = files[i]; i++) {
 		if(app.getFileExtension(f.name) === "qfx") {
+            // Track usage event
+            _gaq.push(['_trackEvent', 'FileConverted', app.getFileExtension(f.name)]);
+            
 			window.fileName = f.name; // Totally hacky
 			
 			app.infoSign.newMessage(f.name);
@@ -82,6 +85,9 @@ app.handleFileSelect = function(evt) {
 			// Read in the image file as a data URL.
 			reader.readAsText(f);
 		} else {
+            // Track usage event
+            _gaq.push(['_trackEvent', 'FileNotConverted', app.getFileExtension(f.name)]);
+            
 			app.infoSign.newMessage('This app currently only supports converting QFX files');
 		}
 	}
