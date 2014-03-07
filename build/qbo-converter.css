@@ -52,6 +52,10 @@ body {
 	font-size: 14px;
 }
 
+a {
+    text-decoration: none;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1.3em;
 }
@@ -206,4 +210,23 @@ h2 {
     background: url('Shapes-Background.png') no-repeat;
     width: 1431px;
     height: 543px;
+}
+
+#google-chrome {
+    position: absolute;
+    background: url('Google-Chrome-Logo.png') 0px 22px no-repeat;
+    width: 244px;
+    height: 80px;
+    top: 36px;
+    left: 83%;
+    font-size: 16px;
+    color: white;
+}
+
+#google-chrome a {
+    color: white;
+}
+
+#google-chrome a:hover {
+    text-decoration: underline;
 }
