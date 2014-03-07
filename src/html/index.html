@@ -8,16 +8,24 @@
 </head>
 <body>
 	<div id="wrapper">
-		<div id="info-sign">
-			<span class="bold">Note:</span> You can close this sign
-			<div class="close-button" id="closeButton"></div>
-		</div>
-		<div id="input-form">
-			<h1>Quickbooks Convertor</h1>
-			<h2>Convert your QFX files to Quickbooks Certified QBO files, free!</h2>
+		<div id="dialog">
+			<div id="dialog-background">
+				<div id="info-sign">
+					<span class="bold">Note:</span> You can close this sign
+					<div class="close-button" id="closeButton"></div>
+				</div>
+				<div id="input-form">
+					<h1>Quickbooks Convertor</h1>
+					<h2>Convert your QFX files to Quickbooks Certified QBO files, free!</h2>
 
-			<div id="drop-zone">Drop filez here</div>
-			<output id="list"></output>
+					<div id="drop-zone">Drop filez here</div>
+					<output id="list"></output>
+				</div>
+			</div>
+			<div id="floor">
+			</div>
+		</div>
+		<div id="footer">
 		</div>
 	</div>
 
@@ -38,5 +46,7 @@
 	  })();
 
 	</script>
+	
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>

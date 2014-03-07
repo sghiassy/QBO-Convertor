@@ -51,7 +51,7 @@ app.convertFile = function(file) {
 	var intuPlaceholder = file.search(INTU);
 	var sonrsPlaceholder = file.search(SONRS);
 	file = file.substring(0, intuPlaceholder + INTU.length) + NEW_INTU + file.substring(sonrsPlaceholder, file.length);
-	
+
 	return file; 
 };
 

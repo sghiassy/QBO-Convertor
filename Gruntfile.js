@@ -81,6 +81,14 @@ module.exports = function(grunt) {
         files: ['<%= concat.js.src %>'],
         tasks: ['concat:js']
       }
+    },
+    copy: {
+      main: {
+        files: [
+          // flattens results to a single level
+          {expand: true, flatten: true, src: ['src/images/**'], dest: 'build/', filter: 'isFile'}
+        ]
+      }
     }
   });
 
@@ -88,8 +96,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Default task.
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('default', ['concat', 'copy']);
   grunt.registerTask('build', ['concat', 'uglify']);
 };

@@ -114,12 +114,31 @@ h2 {
 	padding-top: 145px;
 }
 
+#dialog {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+    width: 1431px;
+}
+
+#floor {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+    background: url('Cork-Floor.png');
+    width: 1431px;
+    height: 95px;
+    top: 15px;
+    z-index: -10;
+    position: relative;
+}
+
 #info-sign {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 	
-	-webkit-user-select: none; /* Chrome/Safari */        
+	-webkit-user-select: none; /* Chrome/Safari */
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+ */
 	
@@ -137,7 +156,6 @@ h2 {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	z-index: -10;
-	
 	
 	background: #fceabb; /* Old browsers */
 	background: -moz-linear-gradient(top, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%); /* FF3.6+ */
@@ -171,4 +189,21 @@ h2 {
 
 .close-button:before {
     content: "x";
+}
+
+#footer {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+    background: url('Background-Grid.png') repeat-x;
+    height: 541px;
+    width: 100%;
+    bottom: 0px;
+    position: fixed;
+}
+
+#dialog-background {
+    background: url('Shapes-Background.png') no-repeat;
+    width: 1431px;
+    height: 543px;
 }
