@@ -218,7 +218,7 @@ h2 {
     width: 244px;
     height: 80px;
     top: 36px;
-    left: 83%;
+    right: 27px;
     font-size: 16px;
     color: white;
 }
@@ -229,4 +229,36 @@ h2 {
 
 #google-chrome a:hover {
     text-decoration: underline;
+}
+
+#knowledge-section {
+    top: 14px;
+    width: 1431px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+    color: #000;
+    font-size: 18px;
+    line-height: 1.7em;
+    padding-top: 37px;
+    font-family: 'Gafata', sans-serif;
+    position: relative;
+    left: -27px;
+}
+
+#knowledge-section h3 {
+    font-family: 'Ovo', serif;
+    font-size: 20px;
+    color: #02224b;
+    margin-bottom: 12px;
+}
+
+#knowledge-section p {
+    margin-bottom: 28px;
+}
+
+#knowledge-section .column {
+    margin-left: 35px;
+    width: 440px;
+    float: left;
 }
