@@ -244,6 +244,7 @@ h2 {
     font-family: 'Gafata', sans-serif;
     position: relative;
     left: -27px;
+    z-index: 200;
 }
 
 #knowledge-section h3 {
