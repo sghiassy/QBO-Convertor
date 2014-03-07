@@ -93,19 +93,19 @@ h2 {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	
+
 	-webkit-user-select: none; /* Chrome/Safari */
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+ */
-	
-	
+
 	color: rgb(116,9,9);
 	font-size: 20px;
 	position: relative;
 
 	width: 500px;
 	height: 40px;
-	padding: 20px 5px 0px 5px;
+	padding: 16px 10px 16px 10px;
+    line-height: 1.1em;
 	background-color: white;
 	
 	-webkit-border-radius: 4px;

@@ -85,16 +85,17 @@ app.handleFileSelect = function(evt) {
 			// Read in the image file as a data URL.
 			reader.readAsText(f);
 		} else {
-            // Track usage event
-            _gaq.push(['_trackEvent', 'FileNotConverted', app.getFileExtension(f.name)]);
+            _gaq.push(['_trackEvent', app.getFileExtension(f.name) + 'FileNotConverted', app.getFileExtension(f.name)]);
             
-			app.infoSign.newMessage('This app currently only supports converting QFX files');
+			app.infoSign.newMessage('This app only supports converting qfx files. You dragged in a ' + app.getFileExtension(f.name) + ' file.');
 		}
 	}
 };
 
 app.getFileExtension = function(fileName) {
-	return fileExtension = fileName.split('.')[fileName.split('.').length - 1];
+	var fileExtension = fileName.split('.')[fileName.split('.').length - 1];
+    fileExtension = fileExtension.toLowerCase();
+    return fileExtension;
 };
 
 app.resizeWindow = function() {
