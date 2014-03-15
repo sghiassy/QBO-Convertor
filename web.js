@@ -10,7 +10,7 @@ app.get('/test', function(request, response) {
 
 app.use('/', express.static(__dirname + '/build'), {maxAge: ONEDAY});
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 9000;
 
 app.listen(port, function() {
 	console.log("Listening on " + port);
