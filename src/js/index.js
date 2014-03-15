@@ -85,7 +85,7 @@ app.handleFileSelect = function(evt) {
 			// Read in the image file as a data URL.
 			reader.readAsText(f);
 		} else {
-            _gaq.push(['_trackEvent', app.getFileExtension(f.name) + 'FileNotConverted', app.getFileExtension(f.name)]);
+            _gaq.push(['_trackEvent', 'FileNotConverted', app.getFileExtension(f.name)]);
             
 			app.infoSign.newMessage('This app only supports converting qfx files. You dragged in a ' + app.getFileExtension(f.name) + ' file.');
 		}
