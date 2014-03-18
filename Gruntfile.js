@@ -100,5 +100,5 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['concat', 'copy']);
-  grunt.registerTask('build', ['concat', 'uglify']);
+  grunt.registerTask('build', ['concat', 'uglify', 'copy']);
 };
