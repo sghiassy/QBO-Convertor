@@ -9,8 +9,11 @@ $(document).ready(function() {
 });
 
 function download(filename, text) {
+	//content = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv), //old way
+	blob = new Blob([text], { type: 'application/vnd.intu.qbo' }); //new way
+	var content = URL.createObjectURL(blob);
     var pom = document.createElement('a');
-    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('href', content);
     pom.setAttribute('download', filename);
     pom.click();
 };
