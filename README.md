@@ -1,6 +1,6 @@
-QBO-Convertor
-=============
+## QBO-Convertor
 
-Install Instructions
+##### Install Instructions
 - git clone git@github.com:sghiassy/QBO-Convertor.git
 - npm install
+- npm start
