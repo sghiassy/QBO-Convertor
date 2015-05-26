@@ -66,6 +66,14 @@ app.convertFile = function(file) {
 };
 
 app.handleFileSelect = function(evt) {
+	// Check for browser compatibility before proceeding forward (i.e. only supporting Chrome for now)
+	var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+	if (!isChrome) {
+		app.infoSign.newMessage("This app only works with Google Chrome. Please see the message in the top-right");
+		_gaq.push(['_trackEvent', 'BadBrowserAttempt']);
+		return;
+	}
+
 	evt.stopPropagation();
 	evt.preventDefault();
 
