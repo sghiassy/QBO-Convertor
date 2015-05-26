@@ -19,14 +19,16 @@ function download(filename, text) {
 };
 
 app.changeFileExtension = function(inputFileName) {
-	if(inputFileName.split('.').length >= 3 || typeof inputFileName !== "string") {
+	if(typeof inputFileName !== "string") {
 		var errorString = "Error 2WXS: There was a problem parsing your filename. Try renaming it";
 		app.infoSign.newMessage(errorString);
 		_gaq.push(['_trackEvent', 'BadFileName', inputFileName]);
 		throw errorString;
 	}
 
-	var oldFileName = inputFileName.split('.')[0];
+	var oldFileNameArray = inputFileName.split('.');
+	oldFileNameArray.pop(); // remove the last part of the array (presumably the file extension)
+	var oldFileName = oldFileNameArray.join(".");
 	var newFileName = oldFileName + ".qbo";
 
 	return newFileName;
@@ -90,7 +92,7 @@ app.handleFileSelect = function(evt) {
 					var theFile = window.scg.fileName || undefined;
 
 					if (theFile) {
-						app.infoSign.newMessage("You're conversion was successful. Your file will be downloaded to your browsers downloads folder.");
+						app.infoSign.newMessage("You're conversion was successful. Your file will be downloaded to your browsers downlads folder.");
 						download(theFile, convertedFile);
 					} else {
 						app.infoSign.newMessage("Error 6TFG: The filename was missing");
