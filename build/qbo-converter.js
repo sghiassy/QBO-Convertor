@@ -66,6 +66,8 @@ app.convertFile = function(file) {
 };
 
 app.handleFileSelect = function(evt) {
+	// Stop the browser from showing the file
+	// and instead do drag-and-drop stuff below
 	evt.stopPropagation();
 	evt.preventDefault();
 
