@@ -12,10 +12,10 @@ function download(filename, text) {
 	//content = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv), //old way
 	blob = new Blob([text], { type: 'application/vnd.intu.qbo' }); //new way
 	var content = URL.createObjectURL(blob);
-    var pom = document.createElement('a');
-    pom.setAttribute('href', content);
-    pom.setAttribute('download', filename);
-    pom.click();
+	var pom = document.createElement('a');
+	pom.setAttribute('href', content);
+	pom.setAttribute('download', filename);
+	pom.click();
 };
 
 app.changeFileExtension = function(inputFileName) {
@@ -66,11 +66,11 @@ app.handleFileSelect = function(evt) {
 	
 	for (var i = 0, f; f = files[i]; i++) {
 		if(app.getFileExtension(f.name) === "qfx") {
-            // Track usage event
-            _gaq.push(['_trackEvent', 'FileConverted', app.getFileExtension(f.name)]);
-            
+			// Track usage event
+			_gaq.push(['_trackEvent', 'FileConverted', app.getFileExtension(f.name)]);
+
 			window.fileName = f.name; // Totally hacky
-			
+
 			app.infoSign.newMessage(f.name);
 
 			var reader = new FileReader();
@@ -88,8 +88,7 @@ app.handleFileSelect = function(evt) {
 			// Read in the image file as a data URL.
 			reader.readAsText(f);
 		} else {
-            _gaq.push(['_trackEvent', 'FileNotConverted', app.getFileExtension(f.name)]);
-            
+			_gaq.push(['_trackEvent', 'FileNotConverted', app.getFileExtension(f.name)]);
 			app.infoSign.newMessage('This app only supports converting qfx files. You dragged in a ' + app.getFileExtension(f.name) + ' file.');
 		}
 	}
@@ -122,9 +121,9 @@ app.setupFileAPI = function() {
 	// Check for the various File API support.
 	if (window.File && window.FileReader && window.FileList && window.Blob) {
 		// Setup the dnd listeners.
-	    var dropZone = document.getElementById('input-form');
-	    dropZone.addEventListener('dragover', app.handleDragOver, false);
-	    dropZone.addEventListener('drop', app.handleFileSelect, false);
+		var dropZone = document.getElementById('input-form');
+		dropZone.addEventListener('dragover', app.handleDragOver, false);
+		dropZone.addEventListener('drop', app.handleFileSelect, false);
 	} else {
 		alert('The File APIs are not fully supported in this browser.');
 	}
