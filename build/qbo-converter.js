@@ -23,7 +23,7 @@ function download(filename, text) {
 app.changeFileExtension = function(inputFileName) {
 	if(typeof inputFileName !== "string") {
 		var errorString = "Error 2WXS: There was a problem parsing your filename. Try renaming it";
-		app.infoSign.newMessage(errorString);
+		app.errorSign.newMessage(errorString);
 		_gaq.push(['_trackEvent', 'BadFileName', inputFileName]);
 		throw errorString;
 	}
@@ -69,7 +69,7 @@ app.handleFileSelect = function(evt) {
 	// Check for browser compatibility before proceeding forward (i.e. only supporting Chrome for now)
 	var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 	if (!isChrome) {
-		app.infoSign.newMessage("This app only works with Google Chrome. Please see the message in the top-right");
+		app.errorSign.newMessage("This app only works with Google Chrome. Please see the message in the top-right");
 		_gaq.push(['_trackEvent', 'BadBrowserAttempt']);
 		return;
 	}
@@ -90,8 +90,6 @@ app.handleFileSelect = function(evt) {
 				fileName: app.changeFileExtension(currentFile.name)
 			}; // Totally hacky way to get around closure below
 
-			app.infoSign.newMessage(currentFile.name);
-
 			var reader = new FileReader();
 
 			// Closure to capture the file information.
@@ -105,7 +103,7 @@ app.handleFileSelect = function(evt) {
 						app.infoSign.newMessage("You're conversion was successful. Your file will be in the 'downloads' folder, as defined in your browser's settings");
 						download(theFile, convertedFile);
 					} else {
-						app.infoSign.newMessage("Error 6TFG: The filename was missing");
+						app.errorSign.newMessage("Error 6TFG: The filename was missing");
 						_gaq.push(['_trackEvent', 'FileMissing']);
 					}
 				};
@@ -115,7 +113,7 @@ app.handleFileSelect = function(evt) {
 			reader.readAsText(f);
 		} else {
 			_gaq.push(['_trackEvent', 'FileNotConverted', app.getFileExtension(f.name)]);
-			app.infoSign.newMessage('This app only supports converting qfx files. You dragged in a ' + app.getFileExtension(f.name) + ' file.');
+			app.errorSign.newMessage('This app only supports converting qfx files. You dragged in a ' + app.getFileExtension(f.name) + ' file.');
 		}
 	}
 };
@@ -174,8 +172,20 @@ app.setupCSS = function() {
 	});
 };
 app.infoSign = {};
+app.errorSign = {};
+
+app.errorSign.newMessage = function(message) {
+	app.css.$infoSign.css({'backgroundColor': '#DF3838', 'color': 'white'});
+	app.infoSign.postMessage(message);
+};
 
 app.infoSign.newMessage = function(message) {
+	app.css.$infoSign.css({'backgroundColor': '#E7FF17', 'color': 'rgb(116,9,9)'});
+	app.infoSign.postMessage(message);
+};
+
+app.infoSign.postMessage = function(message) {
+	app.css.$infoSign.css({zIndex: -1});
 	app.css.$infoSign.html(message);
 	
 	app.css.$infoSign.animate({
