@@ -66,6 +66,9 @@ app.convertFile = function(file) {
 };
 
 app.handleFileSelect = function(evt) {
+	evt.stopPropagation();
+	evt.preventDefault();
+
 	// Check for browser compatibility before proceeding forward (i.e. only supporting Chrome for now)
 	var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 	if (!isChrome) {
@@ -73,9 +76,6 @@ app.handleFileSelect = function(evt) {
 		_gaq.push(['_trackEvent', 'BadBrowserAttempt']);
 		return;
 	}
-
-	evt.stopPropagation();
-	evt.preventDefault();
 
 	var files = evt.dataTransfer.files; // FileList object.
 	
