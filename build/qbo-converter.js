@@ -92,7 +92,7 @@ app.handleFileSelect = function(evt) {
 					var theFile = window.scg.fileName || undefined;
 
 					if (theFile) {
-						app.infoSign.newMessage("You're conversion was successful. Your file will be downloaded to your browsers downlads folder.");
+						app.infoSign.newMessage("You're conversion was successful. Your file will be in the 'downloads' folder, as defined in your browser's settings");
 						download(theFile, convertedFile);
 					} else {
 						app.infoSign.newMessage("Error 6TFG: The filename was missing");
