@@ -115,7 +115,7 @@ app.handleFileSelect = function(evt) {
 			reader.readAsText(f);
 		} else {
 			_gaq.push(['_trackEvent', 'FileNotConverted', app.getFileExtension(f.name)]);
-			app.errorSign.newMessage('This app only supports converting qfx files. You dragged in a ' + app.getFileExtension(f.name) + ' file.');
+			app.errorSign.newMessage('Error 1QJ: This app only supports converting qfx files. You dragged in a ' + app.getFileExtension(f.name) + ' file.');
 		}
 	}
 };
