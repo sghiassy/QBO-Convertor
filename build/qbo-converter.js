@@ -12,10 +12,12 @@ function download(filename, text) {
 	//content = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv), //old way
 	blob = new Blob([text], { type: 'application/vnd.intu.qbo' }); //new way
 	var content = URL.createObjectURL(blob);
-	var pom = document.createElement('a');
-	pom.setAttribute('href', content);
-	pom.setAttribute('download', filename);
-	pom.click();
+	var downloadElement = document.createElement('a');
+	downloadElement.setAttribute('href', content);
+	downloadElement.setAttribute('download', filename);
+	$(downloadElement).html("Click to download");
+	// $(document.body).append(downloadElement); If you uncomment this line, it should work in newer versions of Firefox (but I don't want to support multiple browsers)
+	downloadElement.click();
 };
 
 app.changeFileExtension = function(inputFileName) {
