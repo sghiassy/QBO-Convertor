@@ -20,7 +20,10 @@ function download(filename, text) {
 
 app.changeFileExtension = function(inputFileName) {
 	if(inputFileName.split('.').length >= 3 || typeof inputFileName !== "string") {
-		throw "Error 3XS: Improper filename argument";
+		var errorString = "Error 2WXS: There was a problem parsing your filename. Try renaming it";
+		app.infoSign.newMessage(errorString);
+		_gaq.push(['_trackEvent', 'BadFileName', inputFileName]);
+		throw errorString;
 	}
 
 	var oldFileName = inputFileName.split('.')[0];
@@ -66,24 +69,35 @@ app.handleFileSelect = function(evt) {
 	
 	for (var i = 0, f; f = files[i]; i++) {
 		if(app.getFileExtension(f.name) === "qfx") {
+			var currentFile = f; // renaming the stupid variable name 'f'
+
 			// Track usage event
-			_gaq.push(['_trackEvent', 'FileConverted', app.getFileExtension(f.name)]);
+			_gaq.push(['_trackEvent', 'FileConverted', app.getFileExtension(currentFile.name)]);
 
-			window.fileName = f.name; // Totally hacky
+			window.scg = {
+				fileName: app.changeFileExtension(currentFile.name)
+			}; // Totally hacky way to get around closure below
 
-			app.infoSign.newMessage(f.name);
+			app.infoSign.newMessage(currentFile.name);
 
 			var reader = new FileReader();
 
 			// Closure to capture the file information.
-			reader.onload = (function(theFile) {
-				return function(e) {
-					var convertedFile = app.convertFile(e.target.result);
+			reader.onload = (function() {
+				return function(evt) {
+					// note: In here, this = FileReader
+					var convertedFile = app.convertFile(evt.target.result);
+					var theFile = window.scg.fileName || undefined;
 
-					app.infoSign.newMessage("You're conversion was successful. Your file will be downloaded.");
-					download(app.changeFileExtension(window.fileName), convertedFile);
+					if (theFile) {
+						app.infoSign.newMessage("You're conversion was successful. Your file will be downloaded to your browsers downloads folder.");
+						download(theFile, convertedFile);
+					} else {
+						app.infoSign.newMessage("Error 6TFG: The filename was missing");
+						_gaq.push(['_trackEvent', 'FileMissing']);
+					}
 				};
-			})(f);
+			})();
 
 			// Read in the image file as a data URL.
 			reader.readAsText(f);
@@ -96,8 +110,8 @@ app.handleFileSelect = function(evt) {
 
 app.getFileExtension = function(fileName) {
 	var fileExtension = fileName.split('.')[fileName.split('.').length - 1];
-    fileExtension = fileExtension.toLowerCase();
-    return fileExtension;
+	fileExtension = fileExtension.toLowerCase();
+	return fileExtension;
 };
 
 app.resizeWindow = function() {
