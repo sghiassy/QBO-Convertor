@@ -16,7 +16,7 @@
     "optimist": "~0.6.0"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt": "^1.0.1",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "^0.5.0",
