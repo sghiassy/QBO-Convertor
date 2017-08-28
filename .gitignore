@@ -26,8 +26,9 @@ project.xcworkspace
 node_modules
 npm-debug.log
 
-##### IntelliJ
-.idea
+##### Code Editor Settings
+.idea/
+.vscode/
 
 ##### Android
 *.iml
@@ -39,3 +40,7 @@ npm-debug.log
 /captures
 .externalNativeBuild
 
+#### Selenium
+selenium-debug.log
+test/reports/*
+test/screenshots/*
