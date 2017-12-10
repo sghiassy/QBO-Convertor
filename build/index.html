@@ -26,6 +26,17 @@
 					<h1>Quickbooks Convertor</h1>
 					<h2>Convert your QFX files to Quickbooks Certified QBO files, free!</h2>
 					<div id="drop-zone">Drop file here</div>
+					<div id=advanced_section>
+						<input type="checkbox" id="enabled_advanced_override">
+						<label for="enabled_advanced_override">Advanced</label>
+						<div id=advanced_override_form_controls style="visibility: hidden;">
+							<div id=fid_controls>
+								<label for="fid">FID/BID</label>
+								<input type="text" id="fid" placeholder="Enter a BID/FID to be used">
+							</div>
+							<p><pre>For QB2018, try entering: 11162</pre></p>
+						</div>
+					</div>
 					<output id="list"></output>
 				</div>
 			</div>
