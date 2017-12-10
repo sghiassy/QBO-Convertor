@@ -4,7 +4,7 @@
   "description": "Simple node script to convert qfx files to to QBO files for Quickbooks Import",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku:deploy": "git push heroku",
     "start": "grunt; node web.js"
   },
   "repository": "",
