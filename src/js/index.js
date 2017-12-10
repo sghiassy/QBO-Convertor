@@ -44,8 +44,8 @@ app.convertFile = function(file) {
 	var INTU = "<INTU.BID>";
 	var SONRS = "</SONRS>";
 	var NEW_BANK = "AMEX";
-	var NEW_FID = "3106";
-	var NEW_INTU = "3106";
+	var NEW_FID = $('#fid').val() || "3106"; // Either use the custom override or default to 3106
+	var NEW_INTU = $('#fid').val() || "3106"; // Either use the custom override or default to 3106
 
 	//Replace Bank Name
 	var orgPlaceholder = file.search(ORG);
