@@ -26,6 +26,17 @@
 					<h1>Quickbooks Convertor</h1>
 					<h2>Convert your QFX files to Quickbooks Certified QBO files, free!</h2>
 					<div id="drop-zone">Drop file here</div>
+					<div id=advanced_section>
+						<input type="checkbox" id="enabled_advanced_override">
+						<label for="enabled_advanced_override">Advanced</label>
+						<div id=advanced_override_form_controls style="visibility: hidden;">
+							<div id=fid_controls>
+								<label for="fid">FID/BID</label>
+								<input type="number" id="fid" placeholder="Enter a BID/FID to be used (numbers only)">
+							</div>
+							<p><pre>For QB2018, try entering: 11162</pre></p>
+						</div>
+					</div>
 					<output id="list"></output>
 				</div>
 			</div>
@@ -49,6 +60,8 @@
 				<h3 style="margin-top: 80px">Why does my account say AMEX?</h3>
 				<p>That's the expected behavior.</p>
 				<p>QBOConventor uses AMEX under the hood to enable QBO files to work with Quickbooks. Not the best, but hey.. it's free.</p>
+				<h3 style="margin-top: 80px">QBO Convertor stopped working with QB 2018 </h3>
+				<p>Try clicking the `advanced` checkbox and entering `11162`. Perhaps that will help??</p>
 			</div>
 			<div id="col2" class="column">
 				<h3>Is my information safe?</h3>

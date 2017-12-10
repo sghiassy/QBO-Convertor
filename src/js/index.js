@@ -2,8 +2,8 @@ window.app = {css:{}}; //setup namespace
 
 $(document).ready(function() {
 	// Bootup Code
-	app.setupCSS();
-	
+	app.appSetup();
+
 	// Do the file api
 	app.setupFileAPI();
 });
@@ -44,8 +44,8 @@ app.convertFile = function(file) {
 	var INTU = "<INTU.BID>";
 	var SONRS = "</SONRS>";
 	var NEW_BANK = "AMEX";
-	var NEW_FID = "3106";
-	var NEW_INTU = "3106";
+	var NEW_FID = $('#fid').val() || "3106"; // Either use the custom override or default to 3106
+	var NEW_INTU = $('#fid').val() || "3106"; // Either use the custom override or default to 3106
 
 	//Replace Bank Name
 	var orgPlaceholder = file.search(ORG);
@@ -62,7 +62,7 @@ app.convertFile = function(file) {
 	var sonrsPlaceholder = file.search(SONRS);
 	file = file.substring(0, intuPlaceholder + INTU.length) + NEW_INTU + file.substring(sonrsPlaceholder, file.length);
 
-	return file; 
+	return file;
 };
 
 app.handleFileSelect = function(evt) {
@@ -80,7 +80,7 @@ app.handleFileSelect = function(evt) {
 	}
 
 	var files = evt.dataTransfer.files; // FileList object.
-	
+
 	for (var i = 0, f; f = files[i]; i++) {
 		if(app.getFileExtension(f.name) === "qfx") {
 			var currentFile = f; // renaming the stupid variable name 'f'
@@ -129,10 +129,10 @@ app.getFileExtension = function(fileName) {
 app.resizeWindow = function() {
 	app.css.windowHeight = $(window).height();
 	app.css.windowWidth = $(window).width();
-	
+
 	// Setup main div
 	app.css.$wrapper.css({height:app.css.windowHeight});
-	
+
 	// Setup input form
 	formLeft = (app.css.windowWidth / 2) - (app.css.$inputForm.width() /2);
 };
@@ -155,21 +155,46 @@ app.setupFileAPI = function() {
 	}
 };
 
-app.setupCSS = function() {
+app.appSetup = function() {
 	// Cache jQuery
 	app.css.$wrapper = $("#wrapper");
 	app.css.$inputForm = $('#input-form');
 	app.css.$infoSign = $('#info-sign');
-	
+
 	app.resizeWindow();
-	
+
 	$(window).resize(function() {
 		app.resizeWindow();
 	});
-	
+
 	app.css.$infoSign.css({top:"77px"});
-	
+
 	$('body').click(function(evt) {
 		app.infoSign.close();
+	});
+
+	$('#enabled_advanced_override').change(function() {
+		// Input Form Setup
+		var $inputForm = $('#input-form')
+		var originalInputFormHeight = parseInt(app.css.$inputForm.css('height').replace(/[^-\d\.]/g, '')) // .replace(/[^-\d\.]/g == strip 'px' from css value (i.e: 500px becomes 500)
+		var inputFormHeightDelta = 60
+
+		// Knowledge Section Setup
+		var $knowledgeSection = $('#knowledge-section')
+		var originalKnowledgeSectionTop = parseInt($knowledgeSection.css('top').replace(/[^-\d\.]/g, '')) // .replace(/[^-\d\.]/g == strip 'px' from css value (i.e: 500px becomes 500)
+		var knowledgeSectionTopDelta = inputFormHeightDelta - 40
+
+		// General
+		var animationDuration = 400
+
+		if(this.checked) {
+			$('#advanced_override_form_controls').css({'visibility':'inherit'});
+			$inputForm.animate({height:originalInputFormHeight + inputFormHeightDelta}, animationDuration);
+			$knowledgeSection.animate({top:originalKnowledgeSectionTop + knowledgeSectionTopDelta}, animationDuration);
+		} else {
+			$('#advanced_override_form_controls').css({'visibility':'hidden'})
+			$inputForm.animate({height:originalInputFormHeight - inputFormHeightDelta}, animationDuration);
+			$knowledgeSection.animate({top:originalKnowledgeSectionTop - knowledgeSectionTopDelta}, animationDuration);
+		}
 	});
 };
