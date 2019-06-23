@@ -1,5 +1,3 @@
-const ONEDAY = 86400000
-
 const express = require('express')
 const app = express()
 const logger = require('morgan')
@@ -13,7 +11,7 @@ app.get('/test', (req, res) => {
 })
 
 app.use(serveStatic(path.join(__dirname, '/build'), {
-  maxAge: ONEDAY
+  maxAge: '1d'
 }))
 
 const port = process.env.PORT || 9000;
