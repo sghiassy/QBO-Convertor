@@ -1,17 +1,18 @@
-var ONEDAY = 86400000;
+const ONEDAY = 86400000;
 
-var express = require("express");
-var app = express();
-app.use(express.logger());
+const express = require('express')
+const app = express()
+const logger = require('morgan')
 
-app.get('/test', function(request, response) {
-  response.send('Hello World from Heroku');
-});
+app.use(logger('dev'))
 
-app.use('/', express.static(__dirname + '/build'), {maxAge: ONEDAY});
+app.get('/test', (request, response) => {
+  response.send('Hello World from Heroku')
+})
 
-var port = process.env.PORT || 9000;
+// app.use('/', express.static(), {maxAge: ONEDAY});
+app.use('/', express.static(__dirname + '/build'))
 
-app.listen(port, function() {
-	console.log("Listening on " + port);
-});
+const port = process.env.PORT || 9000;
+
+app.listen(port, () => console.log(`Listening on port ${port}!`))
