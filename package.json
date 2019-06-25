@@ -3,9 +3,14 @@
   "version": "0.0.1",
   "description": "Simple node script to convert qfx files to to QBO files for Quickbooks Import",
   "main": "index.js",
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
   "scripts": {
     "heroku:deploy": "git push heroku",
-    "start": "grunt; node web.js"
+    "start": "grunt; node web.js",
+    "test":"grunt"
   },
   "repository": "",
   "author": "Shaheen Ghiassy",
