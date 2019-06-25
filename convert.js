@@ -42,7 +42,7 @@ fs.readFile(fileToConvert, 'utf8', function(err, data) {
 	file = file.substring(0, intuPlaceholder + INTU.length) + NEW_INTU + file.substring(sonrsPlaceholder, file.length);
 
 	var newFileName = changeFileExtension(fileToConvert);
-	
+
 	fs.writeFile(newFileName, file, function (err) {
 	  if (err) throw err;
 	  console.log('It\'s saved!');
