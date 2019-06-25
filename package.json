@@ -12,7 +12,7 @@
     "start": "grunt; node web.js",
     "test": "grunt"
   },
-  "repository": "",
+  "repository": "https://github.com/sghiassy/QBO-Convertor",
   "author": "Shaheen Ghiassy",
   "license": "BSD",
   "dependencies": {

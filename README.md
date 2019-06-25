@@ -12,7 +12,11 @@
 
 ## Deploying
 
-### Prerequisiters
+This repo is set to automatically deploy to Heroku once the Travis CI job passes
+
+### Manual Deployment
+
+__NOTE: This is no longer required__
 
 #### Heroku CLI
 
