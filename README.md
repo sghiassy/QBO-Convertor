@@ -1,5 +1,7 @@
 # QBO-Convertor
 
+[![Build Status](https://travis-ci.org/sghiassy/QBO-Convertor.svg?branch=master)](https://travis-ci.org/sghiassy/QBO-Convertor)
+
 ## Dev Setup
 
     - git clone git@github.com:sghiassy/QBO-Convertor.git
