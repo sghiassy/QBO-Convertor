@@ -4,8 +4,8 @@
   "description": "Simple node script to convert qfx files to to QBO files for Quickbooks Import",
   "main": "index.js",
   "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.0.0"
+    "node": ">=16.15.0",
+    "npm": ">=7.0.0"
   },
   "scripts": {
     "heroku:deploy": "git push heroku",
