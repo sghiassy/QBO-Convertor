@@ -4,7 +4,7 @@
   "description": "Simple node script to convert qfx files to to QBO files for Quickbooks Import",
   "main": "index.js",
   "engines": {
-    "node": ">=16.15.0",
+    "node": "17.4.0",
     "npm": ">=7.0.0"
   },
   "scripts": {
