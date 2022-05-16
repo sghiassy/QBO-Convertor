@@ -303,3 +303,19 @@ h2 {
     margin-bottom: 10px;
 }
 
+#proj12 {
+	margin-top: 71px;
+    text-align: center;
+    font-size: 25px;
+    padding-left: 30px;
+    padding-right: 30px;
+    line-height: 48px;
+}
+
+#proj12 h2 {
+	font-size: 32px;
+}
+
+#proj12 ul {
+	list-style: circle;
+}
