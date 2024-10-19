@@ -4,11 +4,11 @@
 
 ## Dev Setup
 
-    - git clone git@github.com:sghiassy/QBO-Convertor.git
-    - cd QBO-Conertor
-    - npm install
-    - grunt
-    - npm start
+    - `git clone git@github.com:sghiassy/QBO-Convertor.git`
+    - `cd QBO-Conertor`
+    - `npm install`
+    - `npx grunt`
+    - `npm start`
 
 ## Deploying
 
