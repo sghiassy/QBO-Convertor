@@ -4,25 +4,8 @@ services:
   web:
     image: sghiassy/qbo-converter
     networks:
-      - caddy_network
-
-  caddy:
-    image: caddy:2
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /root/Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-    networks:
-      - caddy_network
+      - myapp_caddy_network
 
 networks:
-  caddy_network:
-    driver: overlay
-
-volumes:
-  caddy_data:
-  caddy_config:
+  myapp_caddy_network:
+    external: true
