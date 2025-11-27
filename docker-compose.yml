@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  web:
+    image: sghiassy/qbo-converter
+    networks:
+      - myapp_caddy_network
+
+networks:
+  myapp_caddy_network:
+    external: true

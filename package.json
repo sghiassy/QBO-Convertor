@@ -7,9 +7,14 @@
     "node": "20.18.0"
   },
   "scripts": {
-    "heroku:deploy": "git push heroku",
-    "start": "grunt; node web.js",
-    "test": "grunt"
+    "start": "npx docker:build:image && docker run -p 4000:4000 sghiassy/qbo-converter",
+    "test": "grunt",
+    "docker:context:default": "docker context use default",
+    "docker:context:hostinger": "docker context use hostinger",
+    "docker:build:image": "npm run docker:context:default && docker build --platform linux/amd64 -t sghiassy/qbo-converter .",
+    "docker:push": "docker push sghiassy/qbo-converter:latest",
+    "docker:deploy": "npm run docker:context:hostinger && docker stack deploy -c docker-compose.yml qbo-app",
+    "caddy:reload": "docker service update --force myapp_caddy"
   },
   "repository": "https://github.com/sghiassy/QBO-Convertor",
   "author": "Shaheen Ghiassy",
