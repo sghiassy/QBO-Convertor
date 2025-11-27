@@ -27,7 +27,7 @@ npx grunt build  # Full build with minification
 
 ### Run Development Server
 ```bash
-npm start        # Runs grunt, then starts Express server on port 3000 (or PORT env var)
+npm start        # Runs grunt, then starts Express server on port 4000 (or PORT env var)
 ```
 
 ### Deploy to Heroku (Legacy)
@@ -59,7 +59,7 @@ Simple Express server that:
 - Serves static files from `build/` directory with 1-day cache
 - Includes a `/test` endpoint for health checks
 - Uses morgan for request logging
-- Runs on port 3000 locally (configurable via PORT env var)
+- Runs on port 4000 locally (configurable via PORT env var)
 
 ### Client-Side Conversion Logic
 The conversion happens entirely in the browser via `src/js/index.js`:
@@ -121,7 +121,7 @@ The project is deployed to a custom VPS using Docker Swarm:
 
 ### Docker Configuration
 - **Dockerfile**: Multi-stage build that runs Grunt during image creation
-- **Port**: 3000 (internally), exposed via Caddy reverse proxy
+- **Port**: 4000 (internally), exposed via Caddy reverse proxy
 - **Build artifacts**: Generated during Docker build, not at runtime
 
 ### Heroku (Legacy)
@@ -134,6 +134,6 @@ Legacy deployment option:
 Add to `/root/Caddyfile` on VPS:
 ```
 qboconverter.com {
-    reverse_proxy qbo-app_web:3000
+    reverse_proxy qbo-app_web:4000
 }
 ```

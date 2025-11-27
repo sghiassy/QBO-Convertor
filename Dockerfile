@@ -13,7 +13,7 @@ COPY . .
 # Run Grunt build process to generate build/ directory
 RUN npx grunt build
 
-EXPOSE 3000
+EXPOSE 4000
 
 # Run the command (grunt already executed during build)
 CMD ["node", "web.js"]
