@@ -27,12 +27,19 @@ npx grunt build  # Full build with minification
 
 ### Run Development Server
 ```bash
-npm start        # Runs grunt, then starts Express server on port 9000 (or PORT env var)
+npm start        # Runs grunt, then starts Express server on port 3000 (or PORT env var)
 ```
 
-### Deploy to Heroku
+### Deploy to Heroku (Legacy)
 ```bash
 npm run heroku:deploy  # git push heroku
+```
+
+### Deploy to Docker Swarm VPS
+```bash
+npm run docker:build:image  # Build Docker image for linux/amd64
+npm run docker:push         # Push to Docker Hub (sghiassy/qbo-converter)
+npm run docker:deploy       # Deploy to VPS via Docker Swarm
 ```
 
 ## Architecture
@@ -52,7 +59,7 @@ Simple Express server that:
 - Serves static files from `build/` directory with 1-day cache
 - Includes a `/test` endpoint for health checks
 - Uses morgan for request logging
-- Runs on port 9000 locally (configurable via PORT env var for Heroku)
+- Runs on port 3000 locally (configurable via PORT env var)
 
 ### Client-Side Conversion Logic
 The conversion happens entirely in the browser via `src/js/index.js`:
@@ -100,7 +107,33 @@ This project requires **Node.js 20.18.0** (specified in package.json engines and
 
 ## Deployment
 
-The project is configured for Heroku deployment:
-- Automatic deployment via Travis CI on successful builds (legacy setup)
+### Docker Swarm VPS (Primary)
+The project is deployed to a custom VPS using Docker Swarm:
+- **Image**: `sghiassy/qbo-converter` on Docker Hub
+- **Domain**: qboconverter.com
+- **Reverse Proxy**: Caddy handles SSL and routing
+- **Deployment process**:
+  1. Build image locally with `npm run docker:build:image` (builds for linux/amd64)
+  2. Push to Docker Hub with `npm run docker:push`
+  3. Deploy to VPS with `npm run docker:deploy` (uses Docker context `hostinger`)
+- **Stack name**: `qbo-app`
+- **Network**: Shares `caddy_network` overlay with other services
+
+### Docker Configuration
+- **Dockerfile**: Multi-stage build that runs Grunt during image creation
+- **Port**: 3000 (internally), exposed via Caddy reverse proxy
+- **Build artifacts**: Generated during Docker build, not at runtime
+
+### Heroku (Legacy)
+Legacy deployment option:
+- Automatic deployment via Travis CI on successful builds
 - Manual deployment: `git push heroku master`
 - Heroku uses `npm start` script which runs grunt build + Express server
+
+### Caddyfile Configuration
+Add to `/root/Caddyfile` on VPS:
+```
+qboconverter.com {
+    reverse_proxy qbo-app_web:3000
+}
+```
