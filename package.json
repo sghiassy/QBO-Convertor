@@ -13,7 +13,8 @@
     "docker:context:hostinger": "docker context use hostinger",
     "docker:build:image": "npm run docker:context:default && docker build --platform linux/amd64 -t sghiassy/qbo-converter .",
     "docker:push": "docker push sghiassy/qbo-converter:latest",
-    "docker:deploy": "npm run docker:context:hostinger && docker stack deploy -c docker-compose.yml qbo-app"
+    "docker:deploy": "npm run docker:context:hostinger && docker stack deploy -c docker-compose.yml qbo-app",
+    "caddy:reload": "docker service update --force myapp_caddy"
   },
   "repository": "https://github.com/sghiassy/QBO-Convertor",
   "author": "Shaheen Ghiassy",

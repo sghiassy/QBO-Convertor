@@ -134,6 +134,17 @@ Legacy deployment option:
 Add to `/root/Caddyfile` on VPS:
 ```
 qboconverter.com {
+    redir https://www.qboconverter.com{uri} permanent
+}
+
+www.qboconverter.com {
     reverse_proxy qbo-app_web:4000
 }
 ```
+
+This configuration:
+- Redirects root domain to www subdomain (301 permanent redirect)
+- Serves the application on www.qboconverter.com
+- Caddy automatically provisions SSL certificates for both domains
+
+After updating the Caddyfile, reload Caddy with: `npm run caddy:reload`
