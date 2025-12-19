@@ -44,4 +44,4 @@ The project uses Grunt for task automation. The `Gruntfile.js` defines tasks for
 
 The project uses JSHint for linting the JavaScript code. The JSHint configuration is defined in the `Gruntfile.js`.
 
-The project has a `.travis.yml` file, which indicates that it uses Travis CI for continuous integration.
+
