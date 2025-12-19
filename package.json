@@ -7,7 +7,7 @@
     "node": "20.18.0"
   },
   "scripts": {
-    "start": "npx docker:build:image && docker run -p 4000:4000 sghiassy/qbo-converter",
+    "start": "npm run docker:build:image && docker run -p 4000:4000 sghiassy/qbo-converter",
     "test": "grunt",
     "docker:context:default": "docker context use default",
     "docker:context:hostinger": "docker context use hostinger",
