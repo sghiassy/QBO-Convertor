@@ -1,5 +1,10 @@
 window.app = {css:{}}; //setup namespace
 
+// Setup Google Analytics
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
+
 $(document).ready(function() {
 	// Bootup Code
 	app.appSetup();
@@ -24,7 +29,7 @@ app.changeFileExtension = function(inputFileName) {
 	if(typeof inputFileName !== "string") {
 		var errorString = "Error 2WXS: There was a problem parsing your filename. Try renaming it";
 		app.errorSign.newMessage(errorString);
-		_gaq.push(['_trackEvent', 'BadFileName', inputFileName]);
+		gtag('event', 'BadFileName', { 'event_label': inputFileName });
 		throw errorString;
 	}
 
@@ -75,7 +80,7 @@ app.handleFileSelect = function(evt) {
 	var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 	if (!isChrome) {
 		app.errorSign.newMessage("This app only works with Google Chrome. Please see the message in the top-right");
-		_gaq.push(['_trackEvent', 'BadBrowserAttempt']);
+		gtag('event', 'BadBrowserAttempt');
 		return;
 	}
 
@@ -86,7 +91,7 @@ app.handleFileSelect = function(evt) {
 			var currentFile = f; // renaming the stupid variable name 'f'
 
 			// Track usage event
-			_gaq.push(['_trackEvent', 'FileConverted', app.getFileExtension(currentFile.name)]);
+			gtag('event', 'FileConverted', { 'event_label': app.getFileExtension(currentFile.name) });
 
 			window.scg = {
 				fileName: app.changeFileExtension(currentFile.name)
@@ -106,7 +111,7 @@ app.handleFileSelect = function(evt) {
 						download(theFile, convertedFile);
 					} else {
 						app.errorSign.newMessage("Error 6TFG: The filename was missing");
-						_gaq.push(['_trackEvent', 'FileMissing']);
+						gtag('event', 'FileMissing');
 					}
 				};
 			})();
@@ -114,7 +119,7 @@ app.handleFileSelect = function(evt) {
 			// Read in the image file as a data URL.
 			reader.readAsText(f);
 		} else {
-			_gaq.push(['_trackEvent', 'FileNotConverted', app.getFileExtension(f.name)]);
+			gtag('event', 'FileNotConverted', { 'event_label': app.getFileExtension(f.name) });
 			app.errorSign.newMessage('Error 1QJ: This app only supports converting qfx files. You dragged in a ' + app.getFileExtension(f.name) + ' file.');
 		}
 	}
@@ -198,6 +203,7 @@ app.appSetup = function() {
 		}
 	});
 };
+
 app.infoSign = {};
 app.errorSign = {};
 
