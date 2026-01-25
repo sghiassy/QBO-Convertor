@@ -124,12 +124,6 @@ The project is deployed to a custom VPS using Docker Swarm:
 - **Port**: 4000 (internally), exposed via Caddy reverse proxy
 - **Build artifacts**: Generated during Docker build, not at runtime
 
-### Heroku (Legacy)
-Legacy deployment option:
-- Automatic deployment via Travis CI on successful builds
-- Manual deployment: `git push heroku master`
-- Heroku uses `npm start` script which runs grunt build + Express server
-
 ### Caddyfile Configuration
 Add to `/root/Caddyfile` on VPS:
 ```

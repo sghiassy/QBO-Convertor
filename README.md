@@ -1,7 +1,5 @@
 # QBO-Convertor
 
-[![Build Status](https://travis-ci.org/sghiassy/QBO-Convertor.svg?branch=master)](https://travis-ci.org/sghiassy/QBO-Convertor)
-
 ## Dev Setup
 
     - `git clone git@github.com:sghiassy/QBO-Convertor.git`
@@ -34,21 +32,3 @@ The deployment process:
 2. Pushes to Docker Hub as `sghiassy/qbo-converter:latest`
 3. Deploys to VPS using Docker stack `qbo-app`
 4. Caddy automatically handles SSL/TLS and reverse proxy
-
-### Heroku (Legacy - Deprecated)
-
-Previously, this repo was set to automatically deploy to Heroku once the Travis CI job passed.
-
-#### Manual Heroku Deployment (No longer used)
-
-Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-command-line
-
-Configuration:
-```bash
-git remote add heroku git@heroku.com:qbo-converter.git
-```
-
-Deploy:
-```bash
-git push heroku master
-```
